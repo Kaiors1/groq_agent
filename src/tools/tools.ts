@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { tavily } from '@tavily/core';
 import { writeFile, createDirectory, displayTree } from '../utils/file-ops.js';
 import { setReadFilesTracker } from './validators.js';
 
@@ -60,6 +61,8 @@ export function formatToolParams(toolName: string, toolArgs: Record<string, any>
     delete_file: ['file_path'],
     list_files: ['directory'],
     search_files: ['pattern'],
+    web_search: ['query'],
+    fetch_url_content: ['urls'],
     execute_command: ['command'],
     create_tasks: [],
     update_tasks: [],
@@ -113,6 +116,44 @@ export function createToolResponse(success: boolean, data?: any, message: string
   }
 
   return response;
+}
+
+/**
+ * Search the web for information.
+ */
+export async function webSearch(query: string): Promise<ToolResult> {
+  try {
+    const tavilyClient = tavily({ apiKey: process.env.TAVILY_API_KEY });
+    const response = await tavilyClient.search(query, { search_depth: 'advanced' });
+    
+    // Format the results into a readable string
+    const formattedResults = response.results.map(
+      (result: any) => `Title: ${result.title}\nURL: ${result.url}\nSnippet: ${result.content}`
+    ).join('\n\n');
+
+    return createToolResponse(true, formattedResults, `Found ${response.results.length} results for '${query}'.`);
+  } catch (error) {
+    return createToolResponse(false, undefined, '', `Error during web search: ${error}`);
+  }
+}
+
+/**
+ * Extracts and returns the main content from a list of URLs.
+ */
+export async function fetchUrlContent(urls: string[]): Promise<ToolResult> {
+  try {
+    const tavilyClient = tavily({ apiKey: process.env.TAVILY_API_KEY });
+    const response = await tavilyClient.extract(urls);
+
+    // Format the results into a readable string
+    const formattedResults = response.results.map(
+      (result: any) => `URL: ${result.url}\nContent: ${result.rawContent}`
+    ).join('\n\n---\n\n');
+
+    return createToolResponse(true, formattedResults, `Successfully extracted content from ${response.results.length} URL(s).`);
+  } catch (error) {
+    return createToolResponse(false, undefined, '', `Error extracting content from URLs: ${error}`);
+  }
 }
 
 /**
@@ -771,6 +812,8 @@ export const TOOL_REGISTRY = {
   delete_file: deleteFile,
   list_files: listFiles,
   search_files: searchFiles,
+  web_search: webSearch,
+  fetch_url_content: fetchUrlContent,
   execute_command: executeCommand,
   create_tasks: createTasks,
   update_tasks: updateTasks,
@@ -813,6 +856,10 @@ export async function executeTool(toolName: string, toolArgs: Record<string, any
           toolArgs.context_lines,
           toolArgs.group_by_file
         );
+      case 'web_search':
+        return await toolFunction(toolArgs.query);
+      case 'fetch_url_content':
+        return await toolFunction(toolArgs.urls);
       case 'execute_command':
         return await toolFunction(toolArgs.command, toolArgs.command_type, toolArgs.working_directory, toolArgs.timeout);
       case 'create_tasks':

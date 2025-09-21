@@ -1,4 +1,8 @@
+import { Agent } from '../core/agent.js';
+
 export interface CommandContext {
+  agent: Agent;
+  command: string;
   addMessage: (message: any) => void;
   clearHistory: () => void;
   setShowLogin: (show: boolean) => void;

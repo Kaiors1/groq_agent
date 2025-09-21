@@ -237,6 +237,46 @@ When asked about your identity, you should identify yourself as a coding assista
     return this.model;
   }
 
+  public saveSession(sessionName: string): void {
+    try {
+      const sessionPath = this.configManager.getSessionPath(sessionName);
+      const sessionData = JSON.stringify(this.messages, null, 2);
+      fs.writeFileSync(sessionPath, sessionData, { mode: 0o600 });
+    } catch (error) {
+      throw new Error(`Failed to save session: ${(error as Error).message}`);
+    }
+  }
+
+  public listSessions(): string[] {
+    return this.configManager.listSessions();
+  }
+
+  public loadSession(sessionName: string): void {
+    try {
+      const sessionPath = this.configManager.getSessionPath(sessionName);
+      if (!fs.existsSync(sessionPath)) {
+        throw new Error(`Session '${sessionName}' not found.`);
+      }
+      const sessionData = fs.readFileSync(sessionPath, 'utf8');
+      const loadedMessages = JSON.parse(sessionData) as Message[];
+
+      if (!Array.isArray(loadedMessages) || loadedMessages.length === 0) {
+        throw new Error('Invalid or empty session file.');
+      }
+
+      this.messages = loadedMessages;
+
+      // Update the current system message from the loaded session
+      const systemMsg = this.messages.find(msg => msg.role === 'system');
+      if (systemMsg) {
+        this.systemMessage = systemMsg.content;
+      }
+
+    } catch (error) {
+      throw new Error(`Failed to load session: ${(error as Error).message}`);
+    }
+  }
+
   public setSessionAutoApprove(enabled: boolean): void {
     this.sessionAutoApprove = enabled;
   }
@@ -635,7 +675,7 @@ When asked about your identity, you should identify yourself as a coding assista
       return result;
 
     } catch (error) {
-      const errorMsg = `Tool execution error: ${error}`;
+      const errorMsg = `Tool execution error: ${(error as Error).message}`;
       return { error: errorMsg, success: false };
     }
   }

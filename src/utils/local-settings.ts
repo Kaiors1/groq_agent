@@ -9,20 +9,50 @@ interface Config {
 }
 
 const CONFIG_DIR = '.groq'; // In home directory
+const SESSIONS_DIR = 'sessions';
 const CONFIG_FILE = 'local-settings.json';
 
 export class ConfigManager {
   private configPath: string;
+  private sessionsPath: string;
 
   constructor() {
     const homeDir = os.homedir();
-    this.configPath = path.join(homeDir, CONFIG_DIR, CONFIG_FILE);
+    const configDir = path.join(homeDir, CONFIG_DIR);
+    this.configPath = path.join(configDir, CONFIG_FILE);
+    this.sessionsPath = path.join(configDir, SESSIONS_DIR);
   }
 
   private ensureConfigDir(): void {
     const configDir = path.dirname(this.configPath);
     if (!fs.existsSync(configDir)) {
       fs.mkdirSync(configDir, { recursive: true });
+    }
+  }
+
+  public getSessionsDir(): string {
+    if (!fs.existsSync(this.sessionsPath)) {
+      fs.mkdirSync(this.sessionsPath, { recursive: true });
+    }
+    return this.sessionsPath;
+  }
+
+  public getSessionPath(sessionName: string): string {
+    // Sanitize sessionName to prevent directory traversal
+    const sanitizedName = path.basename(sessionName).replace(/\.\./g, '');
+    return path.join(this.getSessionsDir(), `${sanitizedName}.json`);
+  }
+
+  public listSessions(): string[] {
+    const sessionsDir = this.getSessionsDir();
+    try {
+      const files = fs.readdirSync(sessionsDir);
+      return files
+        .filter(file => file.endsWith('.json'))
+        .map(file => file.replace('.json', ''));
+    } catch (error) {
+      console.warn('Failed to list sessions:', error);
+      return [];
     }
   }
 

@@ -6,6 +6,9 @@ import { clearCommand } from './definitions/clear.js';
 import { initCommand } from './definitions/init.js';
 import { reasoningCommand } from './definitions/reasoning.js';
 import { statsCommand } from './definitions/stats.js';
+import { saveCommand } from './definitions/save.js';
+import { sessionsCommand } from './definitions/sessions.js';
+import { loadCommand } from './definitions/load.js';
 
 const availableCommands: CommandDefinition[] = [
   helpCommand,
@@ -15,6 +18,9 @@ const availableCommands: CommandDefinition[] = [
   initCommand,
   reasoningCommand,
   statsCommand,
+  saveCommand,
+  sessionsCommand,
+  loadCommand,
 ];
 
 export function getAvailableCommands(): CommandDefinition[] {

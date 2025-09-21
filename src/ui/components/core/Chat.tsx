@@ -133,6 +133,8 @@ export default function Chat({ agent }: ChatProps) {
       // Handle slash commands
       if (message.startsWith('/')) {
         handleSlashCommand(message, {
+          agent,
+          command: message,
           addMessage,
           clearHistory: () => {
             clearHistory();

@@ -131,6 +131,9 @@ Priority: `--proxy` > `HTTPS_PROXY` > `HTTP_PROXY`
 - `/clear` - Clear chat history and context
 - `/reasoning` - Toggle display of reasoning content in messages
 - `/stats` - Display session statistics and token usage
+- `/save [name]` - Save the current session
+- `/load <name>` - Load a session
+- `/sessions` - List all saved sessions
 
 
 ## Development

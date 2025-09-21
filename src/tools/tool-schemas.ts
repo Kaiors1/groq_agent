@@ -359,6 +359,43 @@ export const UPDATE_TASKS_SCHEMA: ToolSchema = {
   }
 };
 
+export const WEB_SEARCH_SCHEMA: ToolSchema = {
+  type: 'function',
+  function: {
+    name: 'web_search',
+    description: 'Search the web for information, documentation, or solutions. Use for finding external information. Example: {\"query\": \"how to use flexbox in css\"}',
+    parameters: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'The search query to find information on the web.'
+        }
+      },
+      required: ['query']
+    }
+  }
+};
+
+export const FETCH_URL_CONTENT_SCHEMA: ToolSchema = {
+  type: 'function',
+  function: {
+    name: 'fetch_url_content',
+    description: 'Extracts the clean, main content from a list of URLs. Use this to \"read\" a webpage found via web_search. Example: {\"urls\": [\"https://example.com/article\"]}',
+    parameters: {
+      type: 'object',
+      properties: {
+        urls: {
+          type: 'array',
+          items: { type: 'string' },
+          description: 'An array of URLs to fetch content from.'
+        }
+      },
+      required: ['urls']
+    }
+  }
+};
+
 // All tools combined
 export const ALL_TOOL_SCHEMAS = [
   READ_FILE_SCHEMA,
@@ -369,7 +406,9 @@ export const ALL_TOOL_SCHEMAS = [
   LIST_FILES_SCHEMA,
   CREATE_TASKS_SCHEMA,
   UPDATE_TASKS_SCHEMA,
-  EXECUTE_COMMAND_SCHEMA
+  EXECUTE_COMMAND_SCHEMA,
+  WEB_SEARCH_SCHEMA,
+  FETCH_URL_CONTENT_SCHEMA
 ];
 
 // Safe tools that can be auto-executed without approval
