@@ -1,17 +1,5 @@
 # **🤖 Groq Agent**
-
-\<p align="center"\>  
-\<a href="https://www.google.com/search?q=https://github.com/kaiors1/groq\_agent"\>  
-\<img src="https://www.google.com/search?q=https://placehold.co/150x150/7c3aed/ffffff%3Ftext%3DGA" alt="Groq Agent Logo"\>  
-\</a\>  
-\</p\>  
-\<h3 align="center"\>Un assistente di programmazione AI da terminale, potenziato, personalizzabile e incredibilmente veloce.\</h3\>
-
-\<p align="center"\>  
-\<img alt="GitHub" src="https://www.google.com/search?q=https://img.shields.io/github/license/kaiors1/groq\_agent%3Fstyle%3Dfor-the-badge%26color%3D7c3aed"\>  
-\<img alt="npm version" src="https://www.google.com/search?q=https://img.shields.io/npm/v/groq-agent%3Fstyle%3Dfor-the-badge%26color%3D7c3aed"\>  
-\<img alt="GitHub stars" src="https://www.google.com/search?q=https://img.shields.io/github/stars/kaiors1/groq\_agent%3Fstyle%3Dfor-the-badge%26color%3D7c3aed"\>  
-\</p\>  
+ 
 **Groq Agent** è un fork del fantastico progetto [groq-code-cli](https://github.com/build-with-groq/groq-code-cli) del team build-with-groq. L'obiettivo è espandere la loro base leggera e personalizzabile per fornire un agente AI più completo e pronto all'uso, mantenendo il massimo rispetto per il lavoro originale.
 
 Il cuore del progetto rimane un template trasparente e facile da modificare per chiunque voglia costruire il proprio assistente AI, evitando la complessità dei CLI più grandi. A questa solida base, **Groq Agent** aggiunge funzionalità chiave come la **ricerca web in tempo reale** (tramite Tavily API), la capacità di **leggere contenuti da URL** e una **gestione completa delle sessioni** per salvare e caricare le conversazioni.
