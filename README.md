@@ -1,118 +1,106 @@
 <h2 align="center">
- <br>
- <img src="docs/thumbnail.png" alt="Groq Code CLI" width="400">
- <br>
- <br>
- Groq Code CLI: A highly customizable, lightweight, and open-source coding CLI powered by Groq for instant iteration.
- <br>
+<br>
+<img src="docs/thumbnail.png" alt="Groq Agent" width="400">
+<br>
+<br>
+Groq Agent: A highly customizable, lightweight, and open-source coding CLI powered by Groq for instant iteration.
+<br>
 </h2>
 
 <p align="center">
- <a href="https://github.com/build-with-groq/groq-code-cli/stargazers"><img src="https://img.shields.io/github/stars/build-with-groq/groq-code-cli"></a>
- <a href="https://github.com/build-with-groq/groq-code-cli/blob/main/LICENSE">
- <img src="https://img.shields.io/badge/License-MIT-green.svg">
- </a>
+<a href="https://www.google.com/search?q=https://github.com/kaiors1/groq_agent/stargazers"><img src="https://www.google.com/search?q=https://img.shields.io/github/stars/kaiors1/groq_agent"></a>
+<a href="https://www.google.com/search?q=https://github.com/kaiors1/groq_agent/blob/main/LICENSE">
+<img src="https://img.shields.io/badge/License-MIT-green.svg">
+</a>
 </p>
 
 <p align="center">
- <a href="#Overview">Overview</a> •
- <a href="#Installation">Installation</a> •
- <a href="#Usage">Usage</a> •
- <a href="#Development">Development</a>
+<a href="#overview">Overview</a> •
+<a href="#installation">Installation</a> •
+<a href="#usage">Usage</a> •
+<a href="#development">Development</a>
 </p>
-
-<br>
 
 https://github.com/user-attachments/assets/5902fd07-1882-4ee7-825b-50d627f8c96a
 
-<br>
+Overview
+This project, Groq Agent, is a fork of the excellent groq-code-cli created by the build-with-groq team. The goal is to expand upon their lightweight and customizable foundation to provide a more comprehensive, out-of-the-box AI agent, while maintaining full respect for their original work.
 
-# Overview
+The core idea remains the same: to offer a transparent and easy-to-modify template for developers who want to build their own AI programming assistant, avoiding the complexity of larger CLIs. To this solid base, Groq Agent adds key features such as real-time web search via the Tavily API (which offers a generous free tier with 1000 credits per month), the ability to fetch content from URLs, and full session management to save and load your conversations.
 
-Coding CLIs are everywhere. The Groq Code CLI is different. It is a blueprint, a building block, for developers looking to leverage, customize, and extend a CLI to be entirely their own. Leading open-source CLIs are all fantastic, inspiring for the open-source community, and hugely rich in features. However, that's just it: they are *gigantic*. Feature-rich: yes, but local development with such a large and interwoven codebase is unfriendly and overwhelming. **This is a project for developers looking to dive in.**
+This makes Groq Agent an even more powerful starting point for your customizations. Use it as-is for a complete agent experience, or dive into the code to make it truly your own!
 
-Groq Code CLI is your chance to make a CLI truly your own. Equipped with all of the features, tools, commands, and UI/UX that’s familiar to your current favorite CLI, we make it simple to add new features you’ve always wanted. By massively cutting down on bloat and code mass without compromising on quality, you can jump into modifying this CLI however you see fit. By leveraging models on Groq, you can iterate even faster (`/models` to see available models). Simply activate the CLI by typing `groq` in your terminal. Use Groq Code CLI in any directory just like you would with any other coding CLI. Use it in this directory to have it build and customize itself!
+Here's where you could take Groq Agent in 2025 and beyond:
 
-A few customization ideas to get started:
-- New slash commands (e.g. /mcp, /deadcode, /complexity, etc.)
-- Additional tools (e.g. web search, merge conflict resolver, knowledge graph builder, etc.)
-- Custom start-up ASCII art
-- Change the start-up command
-- Anything you can think of!
+Multi-step Autonomous Agent: Enable an /autonomous mode where the agent can plan and execute complex sequences of commands and tools to achieve a high-level goal (e.g., "write tests for this class and then refactor it to improve readability").
 
+Self-Correction and Automated Debugging: Create a tool that, given an error or a stack trace, can analyze the code, propose a solution, and apply it autonomously, running tests to verify the fix.
 
-## Installation
+Collaborative Multi-Agent Systems: Introduce specialized agents. For example, a /planner that breaks down problems, a /coder that writes the code, and a /reviewer that checks for quality, having them collaborate to solve complex tasks.
 
-### For Development (Recommended)
-```bash
-git clone https://github.com/build-with-groq/groq-code-cli.git
-cd groq-code-cli
+Persistent Memory and Continuous Learning: Integrate long-term memory (e.g., via a vector database) to allow the agent to remember context and preferences across different sessions, improving its performance over time.
+
+Advanced Code Analysis (AST): Develop tools that operate on the Abstract Syntax Tree (AST) of the code for sophisticated analyses like calculating cyclomatic complexity (/complexity), identifying dead code (/deadcode), or safe structural refactoring.
+
+Integration with Development Platforms: Add tools to interact directly with APIs like GitHub (to create Pull Requests), Jira (to update tickets), or CI/CD pipelines (to trigger builds and deployments).
+
+Dynamic Contextual UI: Allow the agent to dynamically generate complex interfaces in the terminal based on the task. For example, an interactive view for resolving Git merge conflicts.
+
+Security Vulnerability Scanner: A tool that analyzes code for common vulnerabilities (e.g., SQL injection, XSS) and suggests the corresponding security patches.
+
+Voice Interaction: Add a /listen command to accept voice instructions, turning the CLI into a true conversational assistant.
+
+Installation
+For Development (Recommended)
+git clone [https://github.com/kaiors1/groq_agent.git](https://github.com/kaiors1/groq_agent.git)
+cd groq_agent
 npm install
 npm run build
-npm link        # Enables the `groq` command in any directory
-```
+npm link      # Enables the `groq` command in any directory
 
-```bash
 # Run this in the background during development to automatically apply any changes to the source code
-npm run dev  
-```
+npm run dev
 
-### Run Instantly
-```bash
+Instant Execution
 # Using npx, no installation required
 npx groq-code-cli@latest
-```
 
-### Install Globally
-```bash
+Global Installation
 npm install -g groq-code-cli@latest
-```
 
-## Usage
-```bash
-# Start chat session
+Usage
+# Start a chat session
 groq
-```
 
-### Command Line Options
-
-```bash
+Command Line Options
 groq [options]
 
 Options:
-  -t, --temperature <temp>      Temperature for generation (default: 1)
-  -s, --system <message>        Custom system message
-  -d, --debug                   Enable debug logging to debug-agent.log in current directory
-  -p, --proxy <url>             Proxy URL (e.g. http://proxy:8080 or socks5://proxy:1080)
-  -h, --help                    Display help
-  -V, --version                 Display version number
-```
+  -t, --temperature <temp>    Temperature for generation (default: 1)
+  -s, --system <message>      Custom system message
+  -d, --debug                 Enable debug logging to debug-agent.log in the current directory
+  -p, --proxy <url>           Proxy URL (e.g., http://proxy:8080 or socks5://proxy:1080)
+  -h, --help                  Display help
+  -V, --version               Display version number
 
-### Authentication
-
+Authentication
 On first use, start a chat:
 
-```bash
 groq
-```
 
-And type the `/login` command:
+And type the /login command:
 
-![Login](docs/login.png)
->Get your API key from the <strong>Groq Console</strong> [here](https://console.groq.com/keys)
+Get your API key from the <strong>Groq Console</strong> here
 
-This creates a .groq/ folder in your home directory that stores your API key, default model selection, and any other config you wish to add.
+This creates a .groq/ folder in your home directory that stores your API key, default model selection, and any other configuration you wish to add.
 
-You can also set your API key for your current directory via environment variable:
-```bash
+You can also set your API key for the current directory via an environment variable:
+
 export GROQ_API_KEY=your_api_key_here
-```
 
-### Proxy Configuration
-
+Proxy Configuration
 Supports HTTP/HTTPS/SOCKS5 proxies via CLI flag or environment variables:
 
-```bash
 # CLI flag (highest priority)
 groq --proxy http://proxy:8080
 groq --proxy socks5://proxy:1080
@@ -120,85 +108,81 @@ groq --proxy socks5://proxy:1080
 # Environment variables
 export HTTP_PROXY=http://proxy:8080
 export HTTPS_PROXY=socks5://proxy:1080
-```
 
-Priority: `--proxy` > `HTTPS_PROXY` > `HTTP_PROXY`
+Priority: --proxy > HTTPS_PROXY > HTTP_PROXY
 
-### Available Commands
-- `/help` - Show help and available commands
-- `/login` - Login with your credentials
-- `/model` - Select your Groq model
-- `/clear` - Clear chat history and context
-- `/reasoning` - Toggle display of reasoning content in messages
-- `/stats` - Display session statistics and token usage
-- `/save [name]` - Save the current session
-- `/load <name>` - Load a session
-- `/sessions` - List all saved sessions
+Available Commands
+/help - Show help and available commands
 
+/login - Login with your credentials
 
-## Development
+/model - Select your Groq model
 
-### Testing Locally
-```bash
+/clear - Clear chat history and context
+
+/reasoning - Toggle display of reasoning in messages
+
+/stats - Display session statistics and token usage
+
+/save [name] - Save the current session
+
+/load <name> - Load a session
+
+/sessions - List all saved sessions
+
+Development
+Local Testing
 # Run this in the background during development to automatically apply any changes to the source code
-npm run dev  
-```
+npm run dev
 
-### Available Scripts
-```bash
-npm run build      # Build TypeScript to dist/
-npm run dev        # Build in watch mode
-```
+Available Scripts
+npm run build     # Compile TypeScript to dist/
+npm run dev       # Compile in "watch" mode
 
-### Project Structure
-
-```
+Project Structure
 groq-code-cli/
 ├── src/
-│   ├── commands/           
-│   │   ├── definitions/        # Individual command implementations
-│   │   │   ├── clear.ts        # Clear chat history command
-│   │   │   ├── help.ts         # Help command
-│   │   │   ├── login.ts        # Authentication command
-│   │   │   ├── model.ts        # Model selection command
-│   │   │   └── reasoning.ts    # Reasoning toggle command
-│   │   ├── base.ts             # Base command interface
-│   │   └── index.ts            # Command exports
-│   ├── core/               
-│   │   ├── agent.ts            # AI agent implementation
-│   │   └── cli.ts              # CLI entry point and setup
-│   ├── tools/              
-│   │   ├── tool-schemas.ts     # Tool schema definitions
-│   │   ├── tools.ts            # Tool implementations
-│   │   └── validators.ts       # Input validation utilities
-│   ├── ui/                 
-│   │   ├── App.tsx             # Main application component
-│   │   ├── components/     
-│   │   │   ├── core/           # Core chat TUI components
-│   │   │   ├── display/        # Auxiliary components for TUI display
-│   │   │   └── input-overlays/ # Input overlays and modals that occupy the MessageInput box
-│   │   └── hooks/          
-│   └── utils/              
-│       ├── constants.ts        # Application constants
-│       ├── file-ops.ts         # File system operations
-│       ├── local-settings.ts   # Local configuration management
-│       └── markdown.ts         # Markdown processing utilities
-├── docs/                   
-├── package.json    
-├── tsconfig.json        
-└── LICENSE          
-```
+│   ├── commands/
+│   │   ├── definitions/      # Individual command implementations
+│   │   │   ├── clear.ts      # Command to clear history
+│   │   │   ├── help.ts       # Help command
+│   │   │   ├── login.ts      # Authentication command
+│   │   │   ├── model.ts      # Model selection command
+│   │   │   └── reasoning.ts  # Reasoning toggle command
+│   │   ├── base.ts           # Base command interface
+│   │   └── index.ts          # Command exports
+│   ├── core/
+│   │   ├── agent.ts          # AI agent implementation
+│   │   └── cli.ts            # CLI entry point and setup
+│   ├── tools/
+│   │   ├── tool-schemas.ts   # Tool schema definitions
+│   │   ├── tools.ts          # Tool implementations
+│   │   └── validators.ts     # Input validation utilities
+│   ├── ui/
+│   │   ├── App.tsx           # Main application component
+│   │   ├── components/
+│   │   │   ├── core/         # Core TUI chat components
+│   │   │   ├── display/      # Auxiliary components for TUI
+│   │   │   └── input-overlays/ # Input overlays and modals
+│   │   └── hooks/
+│   └── utils/
+│       ├── constants.ts      # Application constants
+│       ├── file-ops.ts       # File system operations
+│       ├── local-settings.ts # Local configuration management
+│       └── markdown.ts       # Markdown processing utilities
+├── docs/
+├── package.json
+├── tsconfig.json
+└── LICENSE
 
-**TL;DR:** Start with `src/core/cli.ts` (main entry point), `src/core/agent.ts`, and `src/ui/hooks/useAgent.ts` (bridge between TUI and the agent). Tools are in `src/tools/`, slash commands are in `src/commands/definitions/`, and customize the TUI in `src/ui/components/`.
+TL;DR: Start with src/core/cli.ts (main entry point), src/core/agent.ts, and src/ui/hooks/useAgent.ts (bridge between TUI and agent). Tools are in src/tools/, slash commands are in src/commands/definitions/, and customize the TUI in src/ui/components/.
 
-### Customization
-
-#### Adding New Tools
-
+Customization
+Adding New Tools
 Tools are AI-callable functions that extend the CLI's capabilities. To add a new tool:
 
-1. **Define the tool schema** in `src/tools/tool-schemas.ts`:
-```typescript
+Define the schema in src/tools/tool-schemas.ts:
+
 export const YOUR_TOOL_SCHEMA: ToolSchema = {
   type: 'function',
   function: {
@@ -213,56 +197,40 @@ export const YOUR_TOOL_SCHEMA: ToolSchema = {
     }
   }
 };
-```
 
-2. **Implement the tool function** in `src/tools/tools.ts`:
-```typescript
+Implement the function in src/tools/tools.ts:
+
 export async function yourToolName(param1: string): Promise<ToolResult> {
   // Your implementation here
   return createToolResponse(true, result, 'Success message');
 }
-```
 
-3. **Register the tool** in the `TOOL_REGISTRY` object and `executeTool` switch statement in `src/tools/tools.ts`.
+Register the tool in the TOOL_REGISTRY object and the executeTool switch statement in src/tools/tools.ts.
 
-4. **Add the schema** to `ALL_TOOL_SCHEMAS` array in `src/tools/tool-schemas.ts`.
+Add the schema to the ALL_TOOL_SCHEMAS array in src/tools/tool-schemas.ts.
 
-#### Adding New Slash Commands
-
+Adding New Slash Commands
 Slash commands provide direct user interactions. To add a new command:
 
-1. **Create command definition** in `src/commands/definitions/your-command.ts`:
-```typescript
+Create the definition in src/commands/definitions/your-command.ts:
+
 import { CommandDefinition, CommandContext } from '../base.js';
 
 export const yourCommand: CommandDefinition = {
   command: 'yourcommand',
   description: 'What your command does',
   handler: ({ addMessage }: CommandContext) => {
-    // Your command logic here
+    // Your logic here
     addMessage({
       role: 'system',
       content: 'Command response'
     });
   }
 };
-```
 
-2. **Register the command** in `src/commands/index.ts` by importing it and adding to the `availableCommands` array.
+Register the command in src/commands/index.ts by importing it and adding it to the availableCommands array.
 
-#### Changing Start Command
-To change the start command from `groq`, change `"groq"` in `"bin"` of `package.json` to your global command of choice.
+Changing the Start Command
+To change the start command from groq, modify "groq" in the "bin" field of package.json to your preferred global command.
 
-Re-run `npm run build` and `npm link`.
-
-
-## Contributing and Support
-
-Improvements through PRs are welcome!
-
-For issues and feature requests, please open an issue on GitHub.
-
-#### Share what you create with Groq on our [socials](https://x.com/GroqInc)!
-
-### Featured Community Creations
-- [OpenRouter Support](https://github.com/rahulvrane/groq-code-cli-openrouter) - rahulvrane
+Run npm run build and npm link again.
