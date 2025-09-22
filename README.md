@@ -1,28 +1,3 @@
-<h2 align="center">
-<br>
-<img src="docs/thumbnail.png" alt="Groq Agent" width="400">
-<br>
-<br>
-Groq Agent: A highly customizable, lightweight, and open-source coding CLI powered by Groq for instant iteration.
-<br>
-</h2>
-
-<p align="center">
-<a href="https://www.google.com/search?q=https://github.com/kaiors1/groq_agent/stargazers"><img src="https://www.google.com/search?q=https://img.shields.io/github/stars/kaiors1/groq_agent"></a>
-<a href="https://www.google.com/search?q=https://github.com/kaiors1/groq_agent/blob/main/LICENSE">
-<img src="https://img.shields.io/badge/License-MIT-green.svg">
-</a>
-</p>
-
-<p align="center">
-<a href="#overview">Overview</a> •
-<a href="#installation">Installation</a> •
-<a href="#usage">Usage</a> •
-<a href="#development">Development</a>
-</p>
-
-https://github.com/user-attachments/assets/5902fd07-1882-4ee7-825b-50d627f8c96a
-
 Overview
 This project, Groq Agent, is a fork of the excellent groq-code-cli created by the build-with-groq team. The goal is to expand upon their lightweight and customizable foundation to provide a more comprehensive, out-of-the-box AI agent, while maintaining full respect for their original work.
 
@@ -60,13 +35,6 @@ npm link      # Enables the `groq` command in any directory
 
 # Run this in the background during development to automatically apply any changes to the source code
 npm run dev
-
-Instant Execution
-# Using npx, no installation required
-npx groq-code-cli@latest
-
-Global Installation
-npm install -g groq-code-cli@latest
 
 Usage
 # Start a chat session
